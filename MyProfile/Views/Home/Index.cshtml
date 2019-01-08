@@ -1,4 +1,4 @@
-﻿
+﻿@model MyProfile.Models.Message
 @{
     Layout = null;
 }
@@ -12,7 +12,7 @@
 </head>
 <body>
     <h2>
-        @ViewData["message"]
+       @Model.Body
 
     </h2>
 

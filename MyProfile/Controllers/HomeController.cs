@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MyProfile.Models;
 
 namespace MyProfile.Controllers
 {
@@ -10,9 +11,13 @@ namespace MyProfile.Controllers
     {
         public IActionResult Index()
         {
-            ViewData["message"] = "Hello from Controller!";
+            //ViewData["message"] = "Hello from Controller!";
             ViewData["now"] = DateTime.Now.TimeOfDay;
-            return View();
+
+            var model = new Message();
+            model.Body = "Hello from Model!";
+
+            return View(model);
         }
     }
 }
