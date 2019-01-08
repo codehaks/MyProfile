@@ -11,6 +11,7 @@ namespace MyProfile.Controllers
         public IActionResult Index()
         {
             ViewData["message"] = "Hello from Controller!";
+            ViewData["now"] = DateTime.Now.TimeOfDay;
             return View();
         }
     }
