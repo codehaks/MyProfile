@@ -11,13 +11,9 @@ namespace MyProfile.Controllers
     {
         public IActionResult Index()
         {
-            //ViewData["message"] = "Hello from Controller!";
             ViewData["now"] = DateTime.Now.TimeOfDay;
-
-            var model = new Message();
-            model.Body = "Hello from Model!";
-
-            return View(model);
+         
+            return View();
         }
     }
 }
