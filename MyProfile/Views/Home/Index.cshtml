@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<MyProfile.Models.User>
 @{
     Layout = null;
+    int i = 1;
 }
 
 <!DOCTYPE html>
@@ -28,9 +29,11 @@
                 @foreach (var user in Model)
                 {
                     <tr>
-                        <td></td>
+                        <td>@i</td>
                         <td>@user.Name</td>
                     </tr>
+
+                    i++;
                 }
 
             </tbody>
