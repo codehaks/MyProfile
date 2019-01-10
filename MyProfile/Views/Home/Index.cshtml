@@ -1,51 +1,37 @@
 ﻿@model IEnumerable<MyProfile.Models.User>
 @{
-    Layout = null;
     int i = 1;
 }
+<h1>Users</h1>
+<hr />
+<a asp-action="create" class="btn btn-dark">Create new user</a>
+<table class="table table-borderless">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
 
-<!DOCTYPE html>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>@user.Name</td>
+                <td>@user.Age</td>
+                <td>
+                    <a asp-action="details" asp-route-id="@user.Id" class="btn btn-light">Details</a>
+                </td>
+            </tr>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-</head>
-<body>
-    <div class="container">
+            i++;
+        }
 
-        <h1>Users</h1>
-        <hr />
-        <table class="table table-borderless">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                @foreach (var user in Model)
-                {
-                <tr>
-                    <td>@i</td>
-                    <td>@user.Name</td>
-                    <td>@user.Age</td>
-                </tr>
-
-                    i++;
-                }
-
-            </tbody>
-        </table>
-
-       
-    </div>
+    </tbody>
+</table>
 
 
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
-</body>
-</html>
+

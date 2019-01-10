@@ -1,0 +1,12 @@
+﻿@model  MyProfile.Models.User
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<hr />
+<p>Name : @Model.Name</p>
+<p>Age : @Model.Age</p>
+
+<a asp-action="Index" class="btn btn-link">Back to list</a>
+

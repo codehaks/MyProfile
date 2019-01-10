@@ -1,21 +1,13 @@
 ﻿@model MyProfile.Models.User
-@{
-    Layout = null;
-}
 
-<!DOCTYPE html>
+<h1>
+    Create
+</h1>
+<hr />
+<form method="post" asp-action="create" asp-controller="home">
+    <input asp-for="Name" class="form-control" placeholder="Name" />
+    <input asp-for="Age" class="form-control" placeholder="Age" />
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-</head>
-<body>
-
-    <form></form>
-
-    <script src="~/lib/jquery/jquery.js"></script>
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
-</body>
-</html>
+<a asp-action="Index" class="btn btn-link">Back to list</a>

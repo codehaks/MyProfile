@@ -21,9 +21,25 @@ namespace MyProfile.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Models.User model)
+        {
+            _db.Users.Add(model);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            var user=_db.Users.Find(id);
+            return View(user);
         }
     }
 }
