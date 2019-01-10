@@ -9,13 +9,38 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
+    <div class="container">
 
-    @foreach (var user in Model)
-    {
-        <p>@user.Name</p>
-    }
+        <h1>Users</h1>
+        <hr />
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
 
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@user.Name</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+       
+    </div>
+
+
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
