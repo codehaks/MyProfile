@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<MyProfile.Models.User>
+@{
     Layout = null;
 }
 
@@ -11,8 +12,10 @@
 </head>
 <body>
 
-    <p>
-        @ViewData["now"]
-    </p>
+    @foreach (var user in Model)
+    {
+        <p>@user.Name</p>
+    }
+
 </body>
 </html>

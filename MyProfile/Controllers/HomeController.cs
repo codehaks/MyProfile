@@ -17,10 +17,8 @@ namespace MyProfile.Controllers
 
         public IActionResult Index()
         {
-
             var model = _db.Users;
-         
-            return Ok(model);
+            return View(model);
         }
     }
 }
