@@ -20,5 +20,10 @@ namespace MyProfile.Controllers
             var model = _db.Users;
             return View(model);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
     }
 }
