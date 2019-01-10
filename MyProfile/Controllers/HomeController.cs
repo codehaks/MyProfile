@@ -32,7 +32,7 @@ namespace MyProfile.Controllers
         {
             _db.Users.Add(model);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
@@ -53,11 +53,25 @@ namespace MyProfile.Controllers
         [HttpPost]
         public IActionResult Edit(Models.User model)
         {
-            var user = _db.Users.Find(model.Id);
-            user.Name = model.Name;
-            user.Age = model.Age;
+            _db.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var user = _db.Users.Find(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Models.User model)
+        {
+            _db.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }

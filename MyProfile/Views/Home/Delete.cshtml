@@ -1,0 +1,18 @@
+﻿@model MyProfile.Models.User
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Delete</h1>
+<hr />
+<p>Name : @Model.Name</p>
+<p>Age : @Model.Age</p>
+
+<form method="post" asp-action="Delete" asp-controller="home">
+    <input asp-for="Id" hidden />
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+
+<a asp-action="Index" class="btn btn-link">Back to list</a>
+
+
