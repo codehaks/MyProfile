@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyProfile.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace MyProfile.Data
             : base(options)
         {
         }
+
+        public DbSet<User> Users { get; set; }
+
 
     }
 }
