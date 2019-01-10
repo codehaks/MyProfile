@@ -1,0 +1,14 @@
+﻿@model MyProfile.Models.User
+
+<h1>
+    Edit
+</h1>
+<hr />
+<form method="post" asp-action="Edit" asp-controller="home">
+    <input asp-for="Id" hidden />
+    <input asp-for="Name" class="form-control" placeholder="Name" />
+    <input asp-for="Age" class="form-control" placeholder="Age" />
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<a asp-action="Index" class="btn btn-link">Back to list</a>

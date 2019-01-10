@@ -41,5 +41,23 @@ namespace MyProfile.Controllers
             var user=_db.Users.Find(id);
             return View(user);
         }
+
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var user = _db.Users.Find(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Models.User model)
+        {
+            var user = _db.Users.Find(model.Id);
+            user.Name = model.Name;
+            user.Age = model.Age;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
