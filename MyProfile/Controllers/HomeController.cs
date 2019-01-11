@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyProfile.Data;
+using MyProfile.Models;
 
 namespace MyProfile.Controllers
 {
@@ -15,9 +16,20 @@ namespace MyProfile.Controllers
             _db = dbContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string term="")
         {
-            var model = _db.Users;
+            IEnumerable<User> model;
+            if (string.IsNullOrEmpty(term))
+            {
+                model = _db.Users.OrderBy(u=>u.Name);
+            }
+            else
+            {
+                model = _db.Users.Where(u => u.Name
+                .ToLower()
+                .StartsWith(term.ToLower())).OrderBy(u => u.Name);
+            }
+            ViewData["term"] = term;
             return View(model);
         }
 

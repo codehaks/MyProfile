@@ -4,7 +4,15 @@
 }
 <h1>Users</h1>
 <hr />
-<a asp-action="create" class="btn btn-dark">Create new user</a>
+<p>
+    <a asp-action="create" class="btn btn-dark">Create new user</a>
+</p>
+
+<form asp-action="Index" method="get" class="form-inline">
+    <input name="term" value="@ViewData["term"]" placeholder="search" class="form-control" />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
 <table class="table table-borderless">
     <thead>
         <tr>
