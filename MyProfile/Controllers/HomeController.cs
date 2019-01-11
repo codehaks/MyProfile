@@ -16,7 +16,9 @@ namespace MyProfile.Controllers
             _db = dbContext;
         }
 
-        public IActionResult Index(string term="",OrderType orderType=OrderType.Name)
+        public IActionResult Index(string term=""
+            ,OrderType orderType=OrderType.Name
+            ,SortType sortType=SortType.Asc)
         {
             IEnumerable<User> model;
             if (string.IsNullOrEmpty(term))
@@ -40,6 +42,11 @@ namespace MyProfile.Controllers
                     break;
                 default:
                     break;
+            }
+
+            if (sortType==SortType.Dsc)
+            {
+                model = model.Reverse();
             }
 
             ViewData["term"] = term;
