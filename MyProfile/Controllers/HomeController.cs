@@ -60,14 +60,12 @@ namespace MyProfile.Controllers
                 model = model.Where(u => u.Gender == genderType);
             }
 
-            ViewData["term"] = term;
-            ViewData["sortType"] = sortType;
-            ViewData["genderType"] = genderType;
-
             var vm = new UserIndexModel
             {
                 Users = model,
-                GenderType=genderType
+                GenderType=genderType,
+                Term=term,
+                SortType=sortType
             };
 
             return View(vm);

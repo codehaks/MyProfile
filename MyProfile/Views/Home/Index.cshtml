@@ -9,7 +9,7 @@
 </p>
 
 <form asp-action="Index" method="get" class="form-inline">
-    <input name="term" value="@ViewData["term"]" placeholder="search" class="form-control" />
+    <input name="term" value="@Model.Term" placeholder="search" class="form-control" />
     <select asp-for="GenderType" asp-items="Html.GetEnumSelectList<MyProfile.Models.GenderType>()" class="form-control"></select>
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
@@ -19,9 +19,9 @@
         <tr>
             <th>#</th>
             <th>
-                <a asp-action="Index" asp-route-sortType="@ViewData["sortType"]" asp-route-orderType="1" asp-route-term="@ViewData["term"]" class="btn btn-link">Name</a>
+                <a asp-action="Index" asp-route-sortType="@Model.SortType" asp-route-orderType="1" asp-route-term="@Model.Term" class="btn btn-link">Name</a>
             </th>
-            <th><a asp-action="Index" asp-route-sortType="@ViewData["sortType"]" asp-route-orderType="2" asp-route-term="@ViewData["term"]" class="btn btn-link">Age</a></th>
+            <th><a asp-action="Index" asp-route-sortType="@Model.SortType" asp-route-orderType="2" asp-route-term="@Model.Term" class="btn btn-link">Age</a></th>
             <th>
                 Gender
             </th>
