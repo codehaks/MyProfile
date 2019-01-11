@@ -63,7 +63,14 @@ namespace MyProfile.Controllers
             ViewData["term"] = term;
             ViewData["sortType"] = sortType;
             ViewData["genderType"] = genderType;
-            return View(model);
+
+            var vm = new UserIndexModel
+            {
+                Users = model,
+                GenderType=genderType
+            };
+
+            return View(vm);
         }
 
         [HttpGet]

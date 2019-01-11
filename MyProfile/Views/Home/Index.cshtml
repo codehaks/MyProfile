@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyProfile.Models.User>
+﻿@model MyProfile.Models.UserIndexModel
 @{
     int i = 1;
 }
@@ -10,11 +10,7 @@
 
 <form asp-action="Index" method="get" class="form-inline">
     <input name="term" value="@ViewData["term"]" placeholder="search" class="form-control" />
-    <select name="genderType" class="form-control">
-        <option value="None">None</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-    </select>
+    <select asp-for="GenderType" asp-items="Html.GetEnumSelectList<MyProfile.Models.GenderType>()" class="form-control"></select>
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
 
@@ -34,7 +30,7 @@
     </thead>
     <tbody>
 
-        @foreach (var user in Model)
+        @foreach (var user in Model.Users)
         {
             <tr>
                 <td>@i</td>
