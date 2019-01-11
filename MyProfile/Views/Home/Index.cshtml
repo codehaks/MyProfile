@@ -18,9 +18,9 @@
         <tr>
             <th>#</th>
             <th>
-                <a asp-action="Index" asp-route-orderType="1" class="btn btn-link">Name</a>
+                <a asp-action="Index" asp-route-orderType="1" asp-route-term="@ViewData["term"]" class="btn btn-link">Name</a>
             </th>
-            <th><a asp-action="Index" asp-route-orderType="2" class="btn btn-link">Age</a></th>
+            <th><a asp-action="Index" asp-route-orderType="2" asp-route-term="@ViewData["term"]" class="btn btn-link">Age</a></th>
             <th></th>
         </tr>
     </thead>
