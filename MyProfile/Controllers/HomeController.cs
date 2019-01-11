@@ -47,9 +47,15 @@ namespace MyProfile.Controllers
             if (sortType==SortType.Dsc)
             {
                 model = model.Reverse();
+                sortType = SortType.Asc;
+            }
+            else
+            {
+                sortType = SortType.Dsc;
             }
 
             ViewData["term"] = term;
+            ViewData["sortType"] = sortType;
             return View(model);
         }
 

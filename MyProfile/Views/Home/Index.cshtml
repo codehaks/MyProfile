@@ -18,9 +18,12 @@
         <tr>
             <th>#</th>
             <th>
-                <a asp-action="Index" asp-route-orderType="1" asp-route-term="@ViewData["term"]" class="btn btn-link">Name</a>
+                <a asp-action="Index" asp-route-sortType="@ViewData["sortType"]" asp-route-orderType="1" asp-route-term="@ViewData["term"]" class="btn btn-link">Name</a>
             </th>
-            <th><a asp-action="Index" asp-route-orderType="2" asp-route-term="@ViewData["term"]" class="btn btn-link">Age</a></th>
+            <th><a asp-action="Index" asp-route-sortType="@ViewData["sortType"]" asp-route-orderType="2" asp-route-term="@ViewData["term"]" class="btn btn-link">Age</a></th>
+            <th>
+                Gender
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,6 +35,7 @@
                 <td>@i</td>
                 <td>@user.Name</td>
                 <td>@user.Age</td>
+                <td>@user.Gender</td>
                 <td>
                     <a asp-action="details" asp-route-id="@user.Id" class="btn btn-light">Details</a>
                     <a asp-action="edit" asp-route-id="@user.Id" class="btn btn-primary">Edit</a>
