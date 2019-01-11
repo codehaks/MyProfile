@@ -16,19 +16,32 @@ namespace MyProfile.Controllers
             _db = dbContext;
         }
 
-        public IActionResult Index(string term="")
+        public IActionResult Index(string term="",OrderType orderType=OrderType.Name)
         {
             IEnumerable<User> model;
             if (string.IsNullOrEmpty(term))
             {
-                model = _db.Users.OrderBy(u=>u.Name);
+                model = _db.Users;
             }
             else
             {
                 model = _db.Users.Where(u => u.Name
                 .ToLower()
-                .StartsWith(term.ToLower())).OrderBy(u => u.Name);
+                .StartsWith(term.ToLower()));
             }
+
+            switch (orderType)
+            {
+                case OrderType.Name:
+                    model = model.OrderBy(u => u.Name);
+                    break;
+                case OrderType.Age:
+                    model = model.OrderBy(u => u.Age);
+                    break;
+                default:
+                    break;
+            }
+
             ViewData["term"] = term;
             return View(model);
         }
