@@ -18,7 +18,8 @@ namespace MyProfile.Controllers
 
         public IActionResult Index(string term=""
             ,OrderType orderType=OrderType.Name
-            ,SortType sortType=SortType.Asc)
+            ,SortType sortType=SortType.Asc
+            ,GenderType genderType=GenderType.None)
         {
             IEnumerable<User> model;
             if (string.IsNullOrEmpty(term))
@@ -54,8 +55,14 @@ namespace MyProfile.Controllers
                 sortType = SortType.Dsc;
             }
 
+            if (genderType!=GenderType.None)
+            {
+                model = model.Where(u => u.Gender == genderType);
+            }
+
             ViewData["term"] = term;
             ViewData["sortType"] = sortType;
+            ViewData["genderType"] = genderType;
             return View(model);
         }
 
