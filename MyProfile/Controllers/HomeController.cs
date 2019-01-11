@@ -10,6 +10,8 @@ namespace MyProfile.Controllers
 {
     public class HomeController : Controller
     {
+        const int PageSize = 5;
+
         private readonly ProfileDbContext _db;
         public HomeController(ProfileDbContext dbContext)
         {
@@ -19,7 +21,8 @@ namespace MyProfile.Controllers
         public IActionResult Index(string term=""
             ,OrderType orderType=OrderType.Name
             ,SortType sortType=SortType.Asc
-            ,GenderType genderType=GenderType.None)
+            ,GenderType genderType=GenderType.None,
+            int pageNumber=1)
         {
             IEnumerable<User> model;
             if (string.IsNullOrEmpty(term))
@@ -60,12 +63,17 @@ namespace MyProfile.Controllers
                 model = model.Where(u => u.Gender == genderType);
             }
 
+            model = model.Skip((pageNumber - 1) * PageSize).Take(PageSize);
+
             var vm = new UserIndexModel
             {
                 Users = model,
                 GenderType=genderType,
                 Term=term,
-                SortType=sortType
+                SortType=sortType,
+                PageNumber=pageNumber,
+                PageSize=PageSize,
+                PageCount= model.Count()/PageSize+1
             };
 
             return View(vm);
