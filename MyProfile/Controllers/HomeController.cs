@@ -62,7 +62,7 @@ namespace MyProfile.Controllers
             {
                 model = model.Where(u => u.Gender == genderType);
             }
-
+            var count = model.Count();
             model = model.Skip((pageNumber - 1) * PageSize).Take(PageSize);
 
             var vm = new UserIndexModel
@@ -73,7 +73,8 @@ namespace MyProfile.Controllers
                 SortType=sortType,
                 PageNumber=pageNumber,
                 PageSize=PageSize,
-                PageCount= model.Count()/PageSize+1
+                OrderType=orderType,
+                PageCount= (count / PageSize)+1
             };
 
             return View(vm);

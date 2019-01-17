@@ -1,6 +1,6 @@
 ﻿@model MyProfile.Models.UserIndexModel
 @{
-    int i = (Model.PageNumber-1)*Model.PageSize+1;
+    int i = (Model.PageNumber - 1) * Model.PageSize + 1;
 }
 <h1>Users</h1>
 <hr />
@@ -50,6 +50,26 @@
     </tbody>
 </table>
 
-<a asp-action="Index" asp-route-pagenumber="1" class="btn btn-primary">1</a>
-<a asp-action="Index" asp-route-pagenumber="2" class="btn btn-primary">2</a>
+@for (int p = 1; p < Model.PageCount + 1; p++)
+{
+
+    <a asp-action="Index" asp-route-pagenumber="@p" asp-route-sortType="@Model.SortType" asp-route-orderType="@Model.OrderType" asp-route-term="@Model.Term" class="@GetClass(Model.PageNumber,p)">@p</a>
+}
+
+<br />
+<br />
+
+@functions{
+    private string GetClass(int pageNumber,int curPageNumer)
+    {
+        if (pageNumber==curPageNumer)
+        {
+            return "btn btn-primary";
+        }
+        else
+        {
+            return "btn btn-light";
+        }
+    }
+}
 
