@@ -94,13 +94,20 @@ namespace MyProfile.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            var model = new UserAddModel
+            {
+                Gender = GenderType.Male
+            };
+
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Create(Models.User model)
+        public IActionResult Create(UserAddModel model)
         {
-            _db.Users.Add(model);
+            var user = _mapper.Map<UserAddModel, User>(model);
+            _db.Users.Add(user);
+
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
         }

@@ -1,4 +1,4 @@
-﻿@model MyProfile.Models.User
+﻿@model MyProfile.ViewModels.UserAddModel
 
 <h1>
     Create
@@ -7,6 +7,7 @@
 <form method="post" asp-action="create" asp-controller="home">
     <input asp-for="Name" class="form-control" placeholder="Name" />
     <input asp-for="Age" class="form-control" placeholder="Age" />
+    <select asp-for="Gender" asp-items="Html.GetEnumSelectList<MyProfile.Models.GenderType>()" class="form-control"></select>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
