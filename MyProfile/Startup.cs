@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,7 @@ namespace MyProfile
         {
             services.AddDbContext<MyProfile.Data.ProfileDbContext>(options =>
              options.UseSqlite("Data Source=app.sqlite"));
+            services.AddAutoMapper();
             services.AddMvc();
         }
 

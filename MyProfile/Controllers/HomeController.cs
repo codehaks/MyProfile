@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyProfile.Data;
 using MyProfile.Models;
+using MyProfile.ViewModels;
 
 namespace MyProfile.Controllers
 {
@@ -13,9 +15,18 @@ namespace MyProfile.Controllers
         const int PageSize = 5;
 
         private readonly ProfileDbContext _db;
-        public HomeController(ProfileDbContext dbContext)
+        private readonly IMapper _mapper;
+        public HomeController(ProfileDbContext dbContext, IMapper mapper)
         {
             _db = dbContext;
+            _mapper = mapper;
+        }
+
+        [Route("api/list")]
+        public IActionResult List()
+        {
+            var model = _db.Users.Select(_mapper.Map<UserViewModel>);
+            return Ok(model);
         }
 
         public IActionResult Index(string term=""
