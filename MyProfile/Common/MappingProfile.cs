@@ -14,6 +14,7 @@ namespace MyProfile.Common
         {
             CreateMap<string, string>().ConvertUsing(new StringTrimmer());
             CreateMap<GenderType, string>().ConvertUsing(new GenderMapper());
+            CreateMap<int, string>().ConvertUsing(new FarsiDigitsMapper());
 
             CreateMap<UserAddModel, User>();
         }
