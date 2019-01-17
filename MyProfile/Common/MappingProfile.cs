@@ -13,6 +13,7 @@ namespace MyProfile.Common
         public MappingProfile()
         {
             CreateMap<string, string>().ConvertUsing(new StringTrimmer());
+            CreateMap<GenderType, string>().ConvertUsing(new GenderMapper());
 
             CreateMap<UserAddModel, User>();
         }
