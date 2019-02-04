@@ -55,14 +55,6 @@ namespace MyProfile.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult CreateDynamic(IEnumerable<Models.User> model)
-        {
-            _db.Users.AddRange(model);
-            _db.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-
         [HttpGet]
         public IActionResult Details(int id)
         {
