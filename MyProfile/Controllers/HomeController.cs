@@ -36,6 +36,20 @@ namespace MyProfile.Controllers
         }
 
         [HttpGet]
+        public IActionResult CreateList()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateList(IEnumerable<Models.User> model)
+        {
+            _db.Users.AddRange(model);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
         public IActionResult Details(int id)
         {
             var user=_db.Users.Find(id);
