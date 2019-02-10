@@ -3,21 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using MyProfile.Data;
+using MyProfile.Models;
 
 namespace MyProfile.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ProfileDbContext _db;
-        public HomeController(ProfileDbContext dbContext)
+        private IMemoryCache _cache;
+
+        public HomeController(ProfileDbContext db, IMemoryCache cache)
         {
-            _db = dbContext;
+            _cache = cache;
+            _db = db;
         }
 
         public IActionResult Index()
         {
-            var model = _db.Users;
+            IList<User> model;
+
+            //if (!_cache.TryGetValue("users", out model))
+            //{
+            //    model = _db.Users.ToList();
+
+            //    var cacheEntryOptions = new MemoryCacheEntryOptions()
+            //        .SetSlidingExpiration(TimeSpan.FromSeconds(30));
+
+            //    _cache.Set("users", model, cacheEntryOptions);
+            //}
+
+            model = _cache.GetOrCreate("users", options => {
+
+                options.SlidingExpiration = TimeSpan.FromSeconds(30);
+
+                return _db.Users.ToList();
+            });
+
             return View(model);
         }
 
@@ -58,7 +81,7 @@ namespace MyProfile.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var user=_db.Users.Find(id);
+            var user = _db.Users.Find(id);
             return View(user);
         }
 
