@@ -20,27 +20,11 @@ namespace MyProfile.Controllers
             _db = db;
         }
 
+        [ResponseCache(Duration =60)]
         public IActionResult Index()
         {
             IList<User> model;
-
-            //if (!_cache.TryGetValue("users", out model))
-            //{
-            //    model = _db.Users.ToList();
-
-            //    var cacheEntryOptions = new MemoryCacheEntryOptions()
-            //        .SetSlidingExpiration(TimeSpan.FromSeconds(30));
-
-            //    _cache.Set("users", model, cacheEntryOptions);
-            //}
-
-            model = _cache.GetOrCreate("users", options => {
-
-                options.SlidingExpiration = TimeSpan.FromSeconds(30);
-
-                return _db.Users.ToList();
-            });
-
+            model = _db.Users.ToList();
             return View(model);
         }
 
@@ -79,6 +63,7 @@ namespace MyProfile.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 60)]
         public IActionResult Details(int id)
         {
             var user = _db.Users.Find(id);

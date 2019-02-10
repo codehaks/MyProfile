@@ -18,8 +18,8 @@ namespace MyProfile
             services.AddDbContext<MyProfile.Data.ProfileDbContext>(options =>
              options.UseSqlite("Data Source=app.sqlite"));
 
-            services.AddMemoryCache();
-
+            //services.AddMemoryCache();
+            services.AddResponseCaching();
             services.AddMvc();
         }
 
@@ -30,6 +30,7 @@ namespace MyProfile
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
+            app.UseResponseCaching();
             app.UseMvcWithDefaultRoute();
         }
     }
