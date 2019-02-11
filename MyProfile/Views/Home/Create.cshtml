@@ -5,9 +5,24 @@
 </h1>
 <hr />
 <form method="post" asp-action="create" asp-controller="home">
-    <input asp-for="Name" class="form-control" placeholder="Name" />
-    <input asp-for="Age" class="form-control" placeholder="Age" />
+
+    <p>
+        <input asp-for="Name" class="form-control" placeholder="Name" />
+        <span asp-validation-for="Name"></span>
+    </p>
+    <p>
+        <input asp-for="Age" class="form-control" placeholder="Age" />
+        <span asp-validation-for="Age"></span>
+    </p>
+    <br />
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
 <a asp-action="Index" class="btn btn-link">Back to list</a>
+
+@section scripts{
+
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/jquery.bootstrapvalidator/js/bootstrapValidator.min.js"></script>
+}

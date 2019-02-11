@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MyProfile.Data;
+using MyProfile.Models;
+using MyProfile.Validations;
 
 namespace MyProfile.Controllers
 {
@@ -30,9 +33,18 @@ namespace MyProfile.Controllers
         [HttpPost]
         public IActionResult Create(Models.User model)
         {
-            _db.Users.Add(model);
-            _db.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _db.Users.Add(model);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(model);
+            }
+
+            
         }
 
         [HttpGet]
