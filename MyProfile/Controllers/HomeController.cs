@@ -20,12 +20,20 @@ namespace MyProfile.Controllers
             _db = db;
         }
 
-        [ResponseCache(Duration =60)]
         public IActionResult Index()
         {
             IList<User> model;
             model = _db.Users.ToList();
             return View(model);
+        }
+
+        [ResponseCache(Duration = 60)]
+        [Route("api/user")]
+        public IActionResult Get()
+        {
+            IList<User> model;
+            model = _db.Users.ToList();
+            return Ok(model);
         }
 
         [HttpGet]
@@ -63,7 +71,7 @@ namespace MyProfile.Controllers
         }
 
         [HttpGet]
-        [ResponseCache(Duration = 60)]
+        [ResponseCache(Duration = 60,Location =ResponseCacheLocation.Any)]
         public IActionResult Details(int id)
         {
             var user = _db.Users.Find(id);
