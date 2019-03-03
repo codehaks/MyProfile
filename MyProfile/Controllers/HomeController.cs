@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using MyProfile.Data;
 using MyProfile.Models;
 
@@ -13,18 +14,39 @@ namespace MyProfile.Controllers
     {
         private readonly ProfileDbContext _db;
         private IMemoryCache _cache;
+        private static ILogger _logger;
 
-        public HomeController(ProfileDbContext db, IMemoryCache cache)
+        public HomeController(ProfileDbContext db, IMemoryCache cache, ILogger<HomeController> logger)
         {
             _cache = cache;
             _db = db;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
             IList<User> model;
-            model = _db.Users.ToList();
+
+            if (!_cache.TryGetValue("users", out model))
+            {
+                model = _db.Users.ToList();
+
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetPriority(CacheItemPriority.NeverRemove)
+                    .SetAbsoluteExpiration(TimeSpan.FromDays(1))
+                    .SetSlidingExpiration(TimeSpan.FromSeconds(3))
+                    .RegisterPostEvictionCallback(UsersCacheEvicted);
+                                
+                _cache.Set("users", model, cacheEntryOptions);
+            }
+
             return View(model);
+        }
+
+        private static void UsersCacheEvicted(object key, object value, EvictionReason reason, object state)
+        {
+            _logger.LogWarning($"Users cache evicted :{reason} | state : {state}");
+
         }
 
         [ResponseCache(Duration = 60)]
@@ -71,7 +93,7 @@ namespace MyProfile.Controllers
         }
 
         [HttpGet]
-        [ResponseCache(Duration = 60,Location =ResponseCacheLocation.Any)]
+        [ResponseCache(Duration = 60, Location = ResponseCacheLocation.Any)]
         public IActionResult Details(int id)
         {
             var user = _db.Users.Find(id);
