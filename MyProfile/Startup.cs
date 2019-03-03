@@ -17,6 +17,13 @@ namespace MyProfile
         {
             services.AddDbContext<MyProfile.Data.ProfileDbContext>(options =>
              options.UseSqlite("Data Source=app.sqlite"));
+
+            services.AddDistributedRedisCache(options =>
+            {
+                options.Configuration = "localhost";
+                options.InstanceName = "UserCacheDb";
+            });
+
             services.AddMvc();
         }
 

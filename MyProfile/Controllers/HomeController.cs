@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using MyProfile.Data;
 
 namespace MyProfile.Controllers
@@ -10,15 +11,40 @@ namespace MyProfile.Controllers
     public class HomeController : Controller
     {
         private readonly ProfileDbContext _db;
-        public HomeController(ProfileDbContext dbContext)
+        private readonly IDistributedCache _cache;
+
+        public HomeController(ProfileDbContext dbContext, IDistributedCache cache)
         {
             _db = dbContext;
+            _cache = cache;
         }
 
         public IActionResult Index()
         {
             var model = _db.Users;
             return View(model);
+        }
+        [Route("api/user")]
+        public IActionResult Get()
+        {
+            var cachedName = _cache.GetString("name");
+
+            if (!string.IsNullOrEmpty(cachedName))
+            {
+                return Ok(cachedName);
+            }
+            else
+            {
+                var data = DateTime.Now.ToString();
+                _cache.SetString("name", data, new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
+                });
+
+                return Ok(data);
+            }
+
+
         }
 
         [HttpGet]
@@ -58,7 +84,7 @@ namespace MyProfile.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var user=_db.Users.Find(id);
+            var user = _db.Users.Find(id);
             return View(user);
         }
 
