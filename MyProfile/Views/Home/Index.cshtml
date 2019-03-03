@@ -9,6 +9,10 @@
 <a asp-action="createList" class="btn btn-secondary">Create List</a>
 <a asp-action="createDynamic" class="btn btn-primary">Create Dynamic</a>
 
+<cache expires-after="TimeSpan.FromSeconds(30)">
+    @DateTime.Now
+</cache>
+
 <table class="table table-borderless">
     <thead>
         <tr>
