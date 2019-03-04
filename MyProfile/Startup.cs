@@ -22,6 +22,7 @@ namespace MyProfile
             {
                 options.Configuration = "localhost";
                 options.InstanceName = "UserCacheDb";
+                //options.
             });
 
             services.AddMvc();
