@@ -36,7 +36,7 @@ namespace MyProfile.Controllers
                 var bytes = ObjectToByteArray(model);
                 _cache.Set("users", bytes, new DistributedCacheEntryOptions
                 {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(1000)
                 });
                 _logger.LogWarning("Users cached to redis");
             }
