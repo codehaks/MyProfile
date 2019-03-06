@@ -35,10 +35,20 @@ namespace MyProfile.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public IActionResult CreateAndReturn(Models.User model)
+        {
+            _db.Users.Add(model);
+            _db.SaveChanges();
+            TempData["message"] = $"User {model.Name} ({model.Age}) created!";
+
+            return RedirectToAction(nameof(Create));
+        }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var user=_db.Users.Find(id);
+            var user = _db.Users.Find(id);
             return View(user);
         }
 

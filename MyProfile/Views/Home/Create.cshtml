@@ -4,10 +4,18 @@
     Create
 </h1>
 <hr />
+
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["message"]
+    </div>
+}
 <form method="post" asp-action="create" asp-controller="home">
     <input asp-for="Name" class="form-control" placeholder="Name" />
     <input asp-for="Age" class="form-control" placeholder="Age" />
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary" ac>Save</button>
+    <button type="submit" asp-action="createAndReturn" asp-controller="home" class="btn btn-primary">Save & New</button>
 </form>
 
 <a asp-action="Index" class="btn btn-link">Back to list</a>
