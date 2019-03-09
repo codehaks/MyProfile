@@ -13,6 +13,7 @@ namespace MyProfile.Controllers
         public HomeController(ProfileDbContext dbContext)
         {
             _db = dbContext;
+
         }
 
         public IActionResult Index()
