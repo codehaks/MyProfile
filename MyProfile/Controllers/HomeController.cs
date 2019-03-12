@@ -18,66 +18,11 @@ namespace MyProfile.Controllers
             _db = dbContext;
         }
 
-        public IActionResult Index(string term=""
-            ,OrderType orderType=OrderType.Name
-            ,SortType sortType=SortType.Asc
-            ,GenderType genderType=GenderType.None,
-            int pageNumber=1)
+        public IActionResult Index()
         {
-            IEnumerable<User> model;
-            if (string.IsNullOrEmpty(term))
-            {
-                model = _db.Users;
-            }
-            else
-            {
-                model = _db.Users.Where(u => u.Name
-                .ToLower()
-                .StartsWith(term.ToLower()));
-            }
+            var model = _db.Users;
 
-            switch (orderType)
-            {
-                case OrderType.Name:
-                    model = model.OrderBy(u => u.Name);
-                    break;
-                case OrderType.Age:
-                    model = model.OrderBy(u => u.Age);
-                    break;
-                default:
-                    break;
-            }
-
-            if (sortType==SortType.Dsc)
-            {
-                model = model.Reverse();
-                sortType = SortType.Asc;
-            }
-            else
-            {
-                sortType = SortType.Dsc;
-            }
-
-            if (genderType!=GenderType.None)
-            {
-                model = model.Where(u => u.Gender == genderType);
-            }
-            var count = model.Count();
-            model = model.Skip((pageNumber - 1) * PageSize).Take(PageSize);
-
-            var vm = new UserIndexModel
-            {
-                Users = model,
-                GenderType=genderType,
-                Term=term,
-                SortType=sortType,
-                PageNumber=pageNumber,
-                PageSize=PageSize,
-                OrderType=orderType,
-                PageCount= (count / PageSize)+1
-            };
-
-            return View(vm);
+            return View(model);
         }
 
         [HttpGet]

@@ -1,27 +1,30 @@
-﻿@model MyProfile.Models.UserIndexModel
-@{
-    int i = (Model.PageNumber - 1) * Model.PageSize + 1;
+﻿@model IEnumerable<MyProfile.Models.User>
+
+@{ 
+    int i = 1;
 }
+
+@section styles{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css" />
+
+}
+
 <h1>Users</h1>
 <hr />
 <p>
     <a asp-action="create" class="btn btn-dark">Create new user</a>
 </p>
 
-<form asp-action="Index" method="get" class="form-inline">
-    <input name="term" value="@Model.Term" placeholder="search" class="form-control" />
-    <select asp-for="GenderType" asp-items="Html.GetEnumSelectList<MyProfile.Models.GenderType>()" class="form-control"></select>
-    <button type="submit" class="btn btn-primary">Search</button>
-</form>
-
 <table class="table table-borderless">
     <thead>
         <tr>
             <th>#</th>
             <th>
-                <a asp-action="Index" asp-route-sortType="@Model.SortType" asp-route-orderType="1" asp-route-term="@Model.Term" class="btn btn-link">Name</a>
+                
             </th>
-            <th><a asp-action="Index" asp-route-sortType="@Model.SortType" asp-route-orderType="2" asp-route-term="@Model.Term" class="btn btn-link">Age</a></th>
+            <th>
+            
+            </th>
             <th>
                 Gender
             </th>
@@ -30,7 +33,7 @@
     </thead>
     <tbody>
 
-        @foreach (var user in Model.Users)
+        @foreach (var user in Model)
         {
             <tr>
                 <td>@i</td>
@@ -50,26 +53,13 @@
     </tbody>
 </table>
 
-@for (int p = 1; p < Model.PageCount + 1; p++)
-{
 
-    <a asp-action="Index" asp-route-pagenumber="@p" asp-route-sortType="@Model.SortType" asp-route-orderType="@Model.OrderType" asp-route-term="@Model.Term" class="@GetClass(Model.PageNumber,p)">@p</a>
+@section scripts{
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>
+
 }
-
-<br />
-<br />
-
-@functions{
-    private string GetClass(int pageNumber,int curPageNumer)
-    {
-        if (pageNumber==curPageNumer)
-        {
-            return "btn btn-primary";
-        }
-        else
-        {
-            return "btn btn-light";
-        }
-    }
-}
-
