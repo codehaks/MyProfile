@@ -1,4 +1,4 @@
-﻿@model  MyProfile.Models.User
+﻿@model MyProfile.Models.User
 @{
     ViewData["Title"] = "Details";
 }
@@ -7,6 +7,7 @@
 <hr />
 <p>Name : @Model.Name</p>
 <p>Age : @Model.Age</p>
+<p>Details : @Model.Description</p>
 
 <a asp-action="Index" class="btn btn-link">Back to list</a>
 
