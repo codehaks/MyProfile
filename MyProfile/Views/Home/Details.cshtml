@@ -1,13 +1,17 @@
 ﻿@model MyProfile.Models.User
+@using Microsoft.AspNetCore.Html
 @{
     ViewData["Title"] = "Details";
+
+    var html = new HtmlString(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Description));
 }
 
 <h1>Details</h1>
 <hr />
 <p>Name : @Model.Name</p>
 <p>Age : @Model.Age</p>
-<p>Details : @Model.Description</p>
+<p>Description : </p>
+<p>@html</p>
 
 <a asp-action="Index" class="btn btn-link">Back to list</a>
 

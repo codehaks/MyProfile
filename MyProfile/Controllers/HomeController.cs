@@ -39,6 +39,7 @@ namespace MyProfile.Controllers
         public IActionResult Details(int id)
         {
             var user=_db.Users.Find(id);
+            
             return View(user);
         }
 
