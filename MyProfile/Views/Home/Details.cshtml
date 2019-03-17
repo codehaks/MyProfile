@@ -1,9 +1,12 @@
 ﻿@model MyProfile.Models.User
 @using Microsoft.AspNetCore.Html
+@using Ganss.XSS;
+
 @{
     ViewData["Title"] = "Details";
-
-    var html = new HtmlString(Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(Model.Description));
+        var s = new HtmlSanitizer();
+            
+    var html = new HtmlString( s.Sanitize(Model.Description));
 }
 
 <h1>Details</h1>
