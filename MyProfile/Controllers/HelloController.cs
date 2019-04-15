@@ -28,7 +28,9 @@ namespace MyProfile.Controllers
         [HttpGet("/hello-async-over-sync")]
         public async Task<string> HelloAsyncOverSync()
         {
-            await Task.Run(() => Thread.Sleep(2000));
+            await Task.Run(
+                () => Thread.Sleep(2000)
+                );
 
             return "Hello World";
         }

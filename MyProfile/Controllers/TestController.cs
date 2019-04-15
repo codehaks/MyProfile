@@ -88,5 +88,12 @@ namespace MyProfile.Controllers
             return Ok(result[0]);
         }
 
+        public IActionResult GetUsers()
+        {
+            var client = new HttpClient();
+            client.GetStringAsync("https://reqres.in/api/users").Wait();
+            return Ok();
+        }
+
     }
 }
