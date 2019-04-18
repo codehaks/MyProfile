@@ -13,14 +13,14 @@ namespace MyProfile.Controllers
         public async Task<IActionResult> SlowAsync()
         {
             await Task.Delay(TimeSpan.FromSeconds(1));
-            return Ok("async");
+            return Ok("async done!");
         }
 
         [Route("/slow-sync")]
         public IActionResult SlowSync()
         {
             Thread.Sleep(TimeSpan.FromSeconds(1));
-            return Ok("sync");
+            return Ok("sync done!");
         }
     }
 }
