@@ -81,11 +81,11 @@ namespace MyProfile.Controllers
         public async Task<IActionResult> GetWait()
         {
             var client = new HttpClient();
-            var usersTask = client.GetStringAsync("https://reqres.in/api/users");
-            var booksTask = client.GetStringAsync("https://fakerestapi.azurewebsites.net/api/Books");
+            var users =  await client.GetStringAsync("https://reqres.in/api/users");
+            var books = await client.GetStringAsync("https://fakerestapi.azurewebsites.net/api/Books");
 
-            var result = await Task.WhenAll(usersTask, booksTask).ConfigureAwait(false);
-            return Ok(result[0]);
+            //var result = await Task.WhenAll(usersTask, booksTask)
+            return Ok(users);
         }
 
         public IActionResult GetUsers()
