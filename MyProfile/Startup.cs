@@ -21,7 +21,7 @@ namespace MyProfile
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = "localhost";
-                options.InstanceName = "UserCacheDb";
+                options.InstanceName = "myprofile_";
                 //options.
             });
 

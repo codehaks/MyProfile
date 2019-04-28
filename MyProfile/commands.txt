@@ -1,0 +1,10 @@
+﻿Here are the commands to retrieve key value:
+
+if value is of type string -> GET <key>
+if value is of type hash -> HGETALL <key>
+if value is of type lists -> lrange <key> <start> <end>
+if value is of type sets -> smembers <key>
+if value is of type sorted sets -> ZRANGEBYSCORE <key> <min> <max>
+command to check the type of value a key mapping to:
+
+type <key>
