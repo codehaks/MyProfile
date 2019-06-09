@@ -35,6 +35,14 @@ namespace MyProfile.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateAsync(Models.User model)
+        {
+            _db.Users.Add(model);
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
