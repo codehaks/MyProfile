@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyProfile.Data;
@@ -32,6 +33,7 @@ namespace MyProfile.Controllers
         {
             _db.Users.Add(model);
             _db.SaveChanges();
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -43,10 +45,25 @@ namespace MyProfile.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public IActionResult FakeCreate(Models.User model)
+        {
+            Thread.Sleep(100);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FakeCreateAsync(Models.User model)
+        {
+            await Task.Delay(100);
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var user=_db.Users.Find(id);
+            var user = _db.Users.Find(id);
             return View(user);
         }
 
