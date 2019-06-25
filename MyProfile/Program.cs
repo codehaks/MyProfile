@@ -15,7 +15,7 @@ namespace MyProfile
     {
         public static void Main(string[] args)
         {
-            ThreadPool.SetMaxThreads(10, 100);
+            ThreadPool.SetMaxThreads(10, 10);
             CreateWebHostBuilder(args).Build().Run();
         }
 
