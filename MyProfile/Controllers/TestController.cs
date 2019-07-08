@@ -41,7 +41,7 @@ namespace MyProfile.Controllers
         {
             try
             {
-               await ThrowAsyncException();
+                await ThrowAsyncException();
             }
             catch (Exception)
             {
@@ -71,9 +71,10 @@ namespace MyProfile.Controllers
         public async Task<IActionResult> GetAll()
         {
             var client = new HttpClient();
-            var usersTask =  client.GetStringAsync("https://reqres.in/api/users");
-            var booksTask =  client.GetStringAsync("https://fakerestapi.azurewebsites.net/api/Books");
-            var result=await Task.WhenAll(usersTask, booksTask);
+            var usersTask = client.GetStringAsync("https://reqres.in/api/users");
+            var booksTask = client.GetStringAsync("https://fakerestapi.azurewebsites.net/api/Books");
+            var result = await Task.WhenAll(usersTask, booksTask);
+
             return Ok(result[0]);
         }
 
@@ -81,7 +82,7 @@ namespace MyProfile.Controllers
         public async Task<IActionResult> GetWait()
         {
             var client = new HttpClient();
-            var users =  await client.GetStringAsync("https://reqres.in/api/users");
+            var users = await client.GetStringAsync("https://reqres.in/api/users");
             var books = await client.GetStringAsync("https://fakerestapi.azurewebsites.net/api/Books");
 
             //var result = await Task.WhenAll(usersTask, booksTask)
@@ -93,6 +94,18 @@ namespace MyProfile.Controllers
             var client = new HttpClient();
             client.GetStringAsync("https://reqres.in/api/users").Wait();
             return Ok();
+        }
+
+        public async Task<IActionResult> GetNumbers()
+        {
+            int number = 0;
+
+            await Task.Run(() =>
+            {
+                number = 2 + 2;
+            });
+
+            return Ok(number);
         }
 
     }

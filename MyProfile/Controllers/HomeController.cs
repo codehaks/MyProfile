@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyProfile.Data;
 
 namespace MyProfile.Controllers
@@ -15,9 +16,9 @@ namespace MyProfile.Controllers
             _db = dbContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = _db.Users;
+            var model = await _db.Users.ToListAsync();
             return View(model);
         }
 
@@ -28,10 +29,10 @@ namespace MyProfile.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Models.User model)
+        public async Task<IActionResult> Create(Models.User model)
         {
             _db.Users.Add(model);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
@@ -71,10 +72,10 @@ namespace MyProfile.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Models.User model)
+        public async Task<IActionResult> Edit(Models.User model)
         {
             _db.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
