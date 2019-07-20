@@ -34,7 +34,7 @@ namespace MyProfile.Controllers
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetPriority(CacheItemPriority.NeverRemove)
                     .SetAbsoluteExpiration(TimeSpan.FromDays(1))
-                    .SetSlidingExpiration(TimeSpan.FromSeconds(3))
+                    //.SetSlidingExpiration(TimeSpan.FromSeconds(3))
                     .RegisterPostEvictionCallback(UsersCacheEvicted);
                                 
                 _cache.Set("users", model, cacheEntryOptions);
@@ -112,6 +112,28 @@ namespace MyProfile.Controllers
         [HttpPost]
         public IActionResult Edit(Models.User model)
         {
+            // update cache
+
+            IList<User> cachedUsers;
+
+            if (_cache.TryGetValue("users", out cachedUsers))
+            {
+                //model = _db.Users.ToList();
+
+                var editeUser=cachedUsers.FirstOrDefault(c => c.Id == model.Id);
+                editeUser.Age = model.Age;
+                editeUser.Name = model.Name;
+
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetPriority(CacheItemPriority.NeverRemove)
+                    .SetAbsoluteExpiration(TimeSpan.FromDays(1))
+                    //.SetSlidingExpiration(TimeSpan.FromSeconds(3))
+                    .RegisterPostEvictionCallback(UsersCacheEvicted);
+
+                _cache.Set("users", cachedUsers, cacheEntryOptions);
+            }
+
+            // update database
             _db.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
