@@ -49,7 +49,7 @@ namespace MyProfile.Controllers
 
         }
 
-        //[ResponseCache(Duration = 60)]
+        //[ResponseCache(Duration = 10)]
         [ResponseCache(CacheProfileName ="Default")]
         [Route("api/user")]
         public IActionResult Get()

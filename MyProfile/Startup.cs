@@ -27,6 +27,7 @@ namespace MyProfile
                 new CacheProfile()
                 {
                     Duration = 60
+                    
                 });
             });
         }
