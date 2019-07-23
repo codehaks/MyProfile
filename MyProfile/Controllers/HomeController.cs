@@ -33,8 +33,8 @@ namespace MyProfile.Controllers
 
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
                     .SetPriority(CacheItemPriority.NeverRemove)
-                    .SetAbsoluteExpiration(TimeSpan.FromDays(1))
-                    .SetSlidingExpiration(TimeSpan.FromSeconds(3))
+                    //.SetAbsoluteExpiration(TimeSpan.FromDays(1))
+                    .SetSlidingExpiration(TimeSpan.FromSeconds(5))
                     .RegisterPostEvictionCallback(UsersCacheEvicted);
                                 
                 _cache.Set("users", model, cacheEntryOptions);
