@@ -18,6 +18,25 @@ namespace MyProfile.Controllers
             _db = dbContext;
         }
 
+        [Route("api/find/{id}")]
+        public IActionResult Find(int id)
+        {
+            var model = _db.Users;
+            var col = new UserDictionary(model.ToList());
+
+            return Ok(col[id]);
+        }
+
+        [Route("api/find2/{name}")]
+        public IActionResult Find2(string name)
+        {
+            var model = _db.Users;
+            var col = new UserCollection(model.ToList());
+            
+
+            return Ok(col[name]);
+        }
+
         public IActionResult Index(string term=""
             ,OrderType orderType=OrderType.Name
             ,SortType sortType=SortType.Asc
@@ -25,6 +44,9 @@ namespace MyProfile.Controllers
             int pageNumber=1)
         {
             IEnumerable<User> model;
+
+            
+            
             if (string.IsNullOrEmpty(term))
             {
                 model = _db.Users;
@@ -35,6 +57,9 @@ namespace MyProfile.Controllers
                 .ToLower()
                 .StartsWith(term.ToLower()));
             }
+
+            
+            
 
             switch (orderType)
             {
