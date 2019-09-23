@@ -35,6 +35,9 @@
             e.preventDefault();
 
             var formContent = $("#more");
+            if (count>2) {
+                count = 5;
+            }
             var content = formContent.html().replace(/#/g, count);
 
             $("#form").append(content);
