@@ -12,11 +12,14 @@ namespace MyProfile
 {
     public class Startup
     {
-       
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MyProfile.Data.ProfileDbContext>(options =>
-             options.UseSqlite("Data Source=app.sqlite"));
+            {
+                //options.UseSqlite("Data Source=app.sqlite");
+                options.UseSqlServer("Data Source=localhost\\sqlexpress;Initial Catalog=MyProfileDb;Integrated Security=True");
+            });
             services.AddMvc();
         }
 
