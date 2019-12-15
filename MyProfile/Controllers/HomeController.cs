@@ -9,7 +9,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
 using MyProfile.Data;
 using MyProfile.Models;
-
+using MyProfile.Common;
 namespace MyProfile.Controllers
 {
     public class HomeController : Controller
@@ -28,23 +28,9 @@ namespace MyProfile.Controllers
         {
             IList<User> model;
 
-            var cachedUsers = _cache.Get("users");
 
-            if (cachedUsers == null)
-            {
-                model = _db.Users.ToList();
-                var bytes = ObjectToByteArray(model);
-                _cache.Set("users", bytes, new DistributedCacheEntryOptions
-                {
-                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(1000)
-                });
-                _logger.LogWarning("Users cached to redis");
-            }
-            else
-            {
-                model = ByteArrayToObject(cachedUsers) as IList<User>;
-                _logger.LogWarning("Users read from redis");
-            }
+            model = _db.Users.ToList();
+
 
             return View(model);
         }
@@ -116,7 +102,7 @@ namespace MyProfile.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateList(IEnumerable<Models.User> model)
+        public IActionResult CreateList([ModelBinder(typeof(UnorderedCollectionBinder))] IEnumerable<Models.User> model)
         {
             _db.Users.AddRange(model);
             _db.SaveChanges();
