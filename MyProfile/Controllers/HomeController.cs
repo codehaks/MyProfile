@@ -62,7 +62,7 @@ namespace MyProfile.Controllers
             if (genderType!=GenderType.None)
             {
                 var s2 = new GenderTypeSpec(genderType);
-                model = model.Where(u => s2.IsSatisfiedBy(u));
+                model = model.Where(s2.ToExpression());
             }
             var count = model.Count();
             model = model.Skip((pageNumber - 1) * PageSize).Take(PageSize);
