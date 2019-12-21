@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyProfile.Data;
 using MyProfile.Models;
+using MyProfile.Specs;
 
 namespace MyProfile.Controllers
 {
@@ -31,9 +32,9 @@ namespace MyProfile.Controllers
             }
             else
             {
-                model = _db.Users.Where(u => u.Name
-                .ToLower()
-                .StartsWith(term.ToLower()));
+                var s1 = new UserNameStartsWithSpec(term);
+
+                model = _db.Users.Where(u => s1.IsSatisfiedBy(u));
             }
 
             switch (orderType)
@@ -60,7 +61,8 @@ namespace MyProfile.Controllers
 
             if (genderType!=GenderType.None)
             {
-                model = model.Where(u => u.Gender == genderType);
+                var s2 = new GenderTypeSpec(genderType);
+                model = model.Where(u => s2.IsSatisfiedBy(u));
             }
             var count = model.Count();
             model = model.Skip((pageNumber - 1) * PageSize).Take(PageSize);
