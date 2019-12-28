@@ -22,7 +22,6 @@ namespace MyProfile
             {
                 options.Configuration = "localhost";
                 options.InstanceName = "myprofile_";
-                //options.
             });
 
             services.AddMvc();
