@@ -16,7 +16,7 @@ namespace MyProfile
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MyProfile.Data.ProfileDbContext>(options =>
-             options.UseSqlite("Data Source=app.sqlite"));
+             options.UseSqlite("Data Source=db/app.sqlite"));
             services.AddMvc();
         }
 
