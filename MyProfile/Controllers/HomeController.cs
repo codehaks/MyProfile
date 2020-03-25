@@ -75,7 +75,7 @@ namespace MyProfile.Controllers
         [Route("api/user")]
         public IActionResult Get()
         {
-            var cachedName = _cache.GetString("name");
+            var cachedName = _cache.GetString("time");
 
             if (!string.IsNullOrEmpty(cachedName))
             {
@@ -84,7 +84,7 @@ namespace MyProfile.Controllers
             else
             {
                 var data = DateTime.Now.ToString();
-                _cache.SetString("name", data, new DistributedCacheEntryOptions
+                _cache.SetString("time", data, new DistributedCacheEntryOptions
                 {
                     AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
                 });
