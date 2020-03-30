@@ -28,7 +28,7 @@ namespace MyProfile.Controllers
         {
             IList<User> model;
 
-            var cachedUsers = _cache.Get("users");
+            var cachedUsers = _cache.Get("users"); // myprofile_users
 
             if (cachedUsers == null)
             {
@@ -58,7 +58,7 @@ namespace MyProfile.Controllers
             MemoryStream ms = new MemoryStream();
             bf.Serialize(ms, obj);
 
-            return ms.ToArray();
+            return ms.ToArray(); // JSON.NET --> newtonsoft
         }
 
         // Convert a byte array to an Object
@@ -77,6 +77,7 @@ namespace MyProfile.Controllers
         {
             var cachedName = _cache.GetString("time");
 
+      
             if (!string.IsNullOrEmpty(cachedName))
             {
                 return Ok(cachedName);
