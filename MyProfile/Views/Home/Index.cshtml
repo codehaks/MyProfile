@@ -53,7 +53,7 @@
 @for (int p = 1; p < Model.PageCount + 1; p++)
 {
 
-    <a asp-action="Index" asp-route-pagenumber="@p" asp-route-sortType="@Model.SortType" asp-route-orderType="@Model.OrderType" asp-route-term="@Model.Term" class="@GetClass(Model.PageNumber,p)">@p</a>
+    <a asp-action="Index" asp-route-pagenumber="@p" asp-route-sortType="@Model.PageSortType" asp-route-orderType="@Model.OrderType" asp-route-term="@Model.Term" class="@GetClass(Model.PageNumber,p)">@p</a>
 }
 
 <br />

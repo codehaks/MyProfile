@@ -48,9 +48,14 @@ namespace MyProfile.Controllers
                     break;
             }
 
-            if (sortType==SortType.Dsc)
+            var pageSortType = sortType;
+            if (pageSortType==SortType.Dsc)
             {
                 model = model.Reverse();
+            }
+
+            if (sortType == SortType.Dsc)
+            {
                 sortType = SortType.Asc;
             }
             else
@@ -71,7 +76,8 @@ namespace MyProfile.Controllers
                 GenderType=genderType,
                 Term=term,
                 SortType=sortType,
-                PageNumber=pageNumber,
+                PageSortType= pageSortType,
+                PageNumber =pageNumber,
                 PageSize=PageSize,
                 OrderType=orderType,
                 PageCount= (count / PageSize)+1
