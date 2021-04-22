@@ -21,9 +21,7 @@ namespace MyProfile
             services.AddDistributedRedisCache(options =>
             {
                 options.Configuration = "localhost";
-                options.InstanceName = "myprofile_";
-                
-                //options.
+                options.InstanceName = "nova_";
             });
 
             services.AddMvc();
